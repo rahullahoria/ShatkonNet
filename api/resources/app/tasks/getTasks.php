@@ -10,25 +10,40 @@
 
 
 function getTasks($appId){
-    $state = $_GET("state");
+    $state = $app->request()->get('state');
 
-    $sql = "SELECT a.field, b.id, b.state_name FROM options as a join states as b WHERE 
-                    a.parent_state_id = :parent_state_id and b.id = a.child_state_id and b.app_id = :app_id";
+    $sql = "SELECT fetch_url FROM task_fetch_info WHERE app_id= :app_id ";
 
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
-
         $stmt->bindParam("app_id", $appId);
-        $stmt->bindParam("parent_state_id", $stateId);
-
         $stmt->execute();
-        $feedbacks = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $url = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $stmt->('fetch_url'));
+        curl_setopt($ch, CURLOPT_HEADER, 0);            
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
+        $raw_data = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($raw_data);
+        
+        $sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
+        $stmt2 = $db->prepare($sql2);
+        $stmt2->bindParam("app_id", $appId);
+        $stmt2->execute();
+        $title = $stmt2->fetchAll(PDO::FETCH_OBJ);
+        $title_fields = explode(",", $title->('mapping_fields'));
 
-
-        $db = null;
-
-        echo '{"states": ' . json_encode($feedbacks) . '}';
+        $sql3 = "SELECT mapping_fields FROM field_mapping 
+                    WHERE app_id = :app_id and field_names = 'description'";
+        $stmt3 = $db->prepare($sql3);
+        $stmt3->bindParam("app_id", $appId);
+        $stmt3->execute();
+        $description = $stmt3->fetchAll(PDO::FETCH_OBJ);
+        $description_fields = explode(",", $description->('mapping_fields'));
+        echo $description_fields;
+        //echo '{"states": ' . json_encode($feedbacks) . '}';
 
 
 
