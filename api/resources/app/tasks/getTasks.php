@@ -33,7 +33,7 @@ function getTasks($appId){
         $stmt2->bindParam("app_id", $appId);
         $stmt2->execute();
         $title = $stmt2->fetchAll(PDO::FETCH_OBJ);
-        $title_fields = explode(",", $title->('mapping_fields'));
+        $title_fields = explode(",", '$title->("mapping_fields")');
 
         $sql3 = "SELECT mapping_fields FROM field_mapping 
                     WHERE app_id = :app_id and field_names = 'description'";
@@ -41,7 +41,7 @@ function getTasks($appId){
         $stmt3->bindParam("app_id", $appId);
         $stmt3->execute();
         $description = $stmt3->fetchAll(PDO::FETCH_OBJ);
-        $description_fields = explode(",", $description->('mapping_fields'));
+        $description_fields = explode(",", '$description->("mapping_fields")');
         echo $description_fields;
         //echo '{"states": ' . json_encode($feedbacks) . '}';
 
