@@ -10,6 +10,7 @@
 
 
 function getTasks($appId){
+    global $app;
     $state = $app->request()->get('state');
 
     $sql = "SELECT fetch_url FROM task_fetch_info WHERE app_id= :app_id ";
