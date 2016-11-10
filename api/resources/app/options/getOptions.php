@@ -9,7 +9,7 @@
  */
 
 
-function getOptions($appId, $stateId){
+function getOptions($appId, $state){
 
     $sql = "SELECT a.field, b.id, b.state_name FROM options as a join states as b WHERE 
                     a.parent_state_id = :parent_state_id and b.id = a.child_state_id and b.app_id = :app_id";
@@ -19,7 +19,7 @@ function getOptions($appId, $stateId){
         $stmt = $db->prepare($sql);
 
         $stmt->bindParam("app_id", $appId);
-        $stmt->bindParam("parent_state_id", $stateId);
+        $stmt->bindParam("parent_state_id", $state);
 
         $stmt->execute();
         $feedbacks = $stmt->fetchAll(PDO::FETCH_OBJ);

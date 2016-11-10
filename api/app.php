@@ -20,7 +20,7 @@ $app->response->headers->set('Content-Type', 'application/json');
 /* Starting routes */
 
 $app->get('/app/:appId/states','getAppStates');
-$app->get('/app/:appId/tasks/:open/options','getOptions');
+$app->get('/app/:appId/tasks/:state/options','getOptions');
 $app->get('/app/:appId/tasks','getTasks');
 //$app->post('/feedbacks/:user_id/:id', 'saveFeedback');
 
