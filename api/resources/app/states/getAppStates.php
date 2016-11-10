@@ -20,12 +20,12 @@ function getAppStates($appId){
         $stmt->bindParam("app_id", $appId);
 
         $stmt->execute();
-        $feedbacks = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $states = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 
         $db = null;
 
-        echo '{"states": ' . json_encode($feedbacks) . '}';
+        echo '{"states": ' . json_encode($states) . '}';
 
 
 

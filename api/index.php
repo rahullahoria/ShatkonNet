@@ -10,8 +10,8 @@ require 'Slim/Slim.php';
 
 //Sub resource states
 require_once "resources/app/states/getAppStates.php";
-require_once "resources/app/states/getOptions.php";
-require_once "resources/app/states/getTasks.php";
+require_once "resources/app/options/getOptions.php";
+require_once "resources/app/tasks/getTasks.php";
 
 //app
 require_once "app.php";
