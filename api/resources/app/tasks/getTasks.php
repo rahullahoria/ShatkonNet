@@ -21,7 +21,7 @@ function getTasks($appId){
         $stmt->bindParam("app_id", $appId);
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_OBJ);
-        echo $url[0];
+        print_r($url[0]);
         /*$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, '$url->("fetch_url")');
         curl_setopt($ch, CURLOPT_HEADER, 0);            
