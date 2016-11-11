@@ -21,14 +21,30 @@ function getTasks($appId){
         $stmt->bindParam("app_id", $appId);
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $ch = curl_init();
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "\"".$url[0]['fetch_url']."\"");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, 1);
+            curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, 2);
+            $data = curl_exec($ch);
+            if(curl_errno($ch)){
+                throw new Exception(curl_error($ch));
+            }
+            curl_close($ch);
+            $data = json_decode($data);
+            var_dump($data);
+        } catch(Exception $e) {
+            echo '{"error":{"text":' . $e->getMessage() . '}}';
+        }
+        /*$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, '\''.$url[0]["fetch_url"].'\'');
         curl_setopt($ch, CURLOPT_HEADER, 0);            
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
         $raw_data = curl_exec($ch);
-        curl_close($ch);
+        curl_close($ch);*/
         /*$data = json_decode($raw_data);*/
-        echo $raw_data.'\''.$url[0]["fetch_url"].'\'';
+        //echo $raw_data.'\''.$url[0]["fetch_url"].'\'';
         /*$sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
         $stmt2 = $db->prepare($sql2);
         $stmt2->bindParam("app_id", $appId);
