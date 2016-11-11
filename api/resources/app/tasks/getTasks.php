@@ -27,8 +27,8 @@ function getTasks($appId){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
         $raw_data = curl_exec($ch);
         curl_close($ch);
-        $data = json_decode($raw_data);
-        var_dump($data);
+        /*$data = json_decode($raw_data);*/
+        var_dump($raw_data);
         /*$sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
         $stmt2 = $db->prepare($sql2);
         $stmt2->bindParam("app_id", $appId);
