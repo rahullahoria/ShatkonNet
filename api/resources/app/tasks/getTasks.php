@@ -21,20 +21,19 @@ function getTasks($appId){
         $stmt->bindParam("app_id", $appId);
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        print_r($url[0]['fetch_url']);
-        /*$ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, '$url->("fetch_url")');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, '$url[0]["fetch_url"]');
         curl_setopt($ch, CURLOPT_HEADER, 0);            
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
         $raw_data = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($raw_data);
-        
-        $sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
+        echo $data;
+        /*$sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
         $stmt2 = $db->prepare($sql2);
         $stmt2->bindParam("app_id", $appId);
         $stmt2->execute();
-        $title = $stmt2->fetchAll(PDO::FETCH_OBJ);
+        $title = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         $title_fields = explode(",", '$title->("mapping_fields")');
 
         $sql3 = "SELECT mapping_fields FROM field_mapping 
@@ -42,7 +41,7 @@ function getTasks($appId){
         $stmt3 = $db->prepare($sql3);
         $stmt3->bindParam("app_id", $appId);
         $stmt3->execute();
-        $description = $stmt3->fetchAll(PDO::FETCH_OBJ);
+        $description = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         $description_fields = explode(",", '$description->("mapping_fields")');
         print_r($description_fields) ;*/
         //echo '{"states": ' . json_encode($feedbacks) . '}';
