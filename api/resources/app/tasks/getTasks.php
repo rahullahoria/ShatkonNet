@@ -22,18 +22,10 @@ function getTasks($appId){
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $fetch_url = trim($url[0]['fetch_url']);
+        var_dump($fetch_url);
         try {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "\"".$fetch_url."\"");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, 1);
-            curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, 2);
-            $data = curl_exec($ch);
-            if(curl_errno($ch)){
-                throw new Exception(curl_error($ch));
-            }
-            curl_close($ch);
-            $data = json_decode($data);
+            
+            $data = httpGet($fetch_url);
             var_dump($data);
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -69,4 +61,16 @@ function getTasks($appId){
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+}
+function httpGet($url){
+    $ch = curl_init();
+
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+//  curl_setopt($ch,CURLOPT_HEADER, false);
+
+    $output=curl_exec($ch);
+
+    curl_close($ch);
+    return $output;
 }
