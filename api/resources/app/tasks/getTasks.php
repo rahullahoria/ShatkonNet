@@ -22,28 +22,23 @@ function getTasks($appId){
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $fetch_url = trim($url[0]['fetch_url']);
-        var_dump($fetch_url);
         try {
             
             $data = httpGet($fetch_url);
-            var_dump($data);
+            $testdata = json_decode($data);
+            var_dump($testdata['root']['srs'][0]);
+            
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
-        /*$ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, '\''.$url[0]["fetch_url"].'\'');
-        curl_setopt($ch, CURLOPT_HEADER, 0);            
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
-        $raw_data = curl_exec($ch);
-        curl_close($ch);*/
-        /*$data = json_decode($raw_data);*/
-        //echo $raw_data.'\''.$url[0]["fetch_url"].'\'';
-        /*$sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
+                
+        $sql2 = "SELECT mapping_fields FROM field_mapping WHERE app_id = :app_id and field_names = 'title'";
         $stmt2 = $db->prepare($sql2);
         $stmt2->bindParam("app_id", $appId);
         $stmt2->execute();
         $title = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $title_fields = explode(",", '$title->("mapping_fields")');
+        $title_field = $title[0]['mapping_fields'];
+        $title_fields = explode(",", $title_field);
 
         $sql3 = "SELECT mapping_fields FROM field_mapping 
                     WHERE app_id = :app_id and field_names = 'description'";
@@ -51,12 +46,12 @@ function getTasks($appId){
         $stmt3->bindParam("app_id", $appId);
         $stmt3->execute();
         $description = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-        $description_fields = explode(",", '$description->("mapping_fields")');
-        print_r($description_fields) ;*/
-        //echo '{"states": ' . json_encode($feedbacks) . '}';
-
-
-
+        $description_field = $description[0]['mapping_fields'];
+        $description_fields = explode(",", $description_field);
+        foreach ($variable as $key => $value) {
+            # code...
+        }
+              
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
