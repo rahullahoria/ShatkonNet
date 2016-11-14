@@ -26,7 +26,7 @@ function getTasks($appId){
             
             $data = httpGet($fetch_url);
             $testdata = json_decode($data);
-            var_dump($testdata['root']['srs'][0]);
+            var_dump($testdata['root']['srs'][0]); die();
             
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
