@@ -21,12 +21,11 @@ function getTasks($appId){
         $stmt->bindParam("app_id", $appId);
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $fetch_url = trim($url[0]['fetch_url']);
+        $fetch_url = trim($url[0]['fetch_url'])."=".$state;
         try {
             
             $data = httpGet($fetch_url);
-            $testdata = json_decode($data);
-            var_dump($testdata['root']['srs'][0]); die();
+            var_dump($data);
             
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
