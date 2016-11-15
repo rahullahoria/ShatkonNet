@@ -65,7 +65,7 @@ function getTasks($appId){
             
 
         }
-        echo '{"tasks":[{'.json_encode($taskData).'}]}';
+        echo '{"tasks":'.json_encode($taskData).'}';
 
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
