@@ -21,10 +21,10 @@ function getTasks($appId){
         $stmt->bindParam("app_id", $appId);
         $stmt->execute();
         $url = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $fetch_url = trim($url[0]['fetch_url'])."=".$state;
+        $fetchUrl = trim($url[0]['fetch_url'])."=".$state;
         try {
             
-            $data = json_decode(httpGet($fetch_url), true);
+            $data = json_decode(httpGet($fetchUrl), true);
             $tasks = $data['root']['srs'];
                         
         } catch(Exception $e) {
@@ -36,8 +36,8 @@ function getTasks($appId){
         $stmt2->bindParam("app_id", $appId);
         $stmt2->execute();
         $title = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $title_field = $title[0]['mapping_fields'];
-        $title_fields = explode(",", $title_field);
+        $titleField = $title[0]['mapping_fields'];
+        $titleFields = explode(",", $titleField);
 
         $sql3 = "SELECT mapping_fields FROM field_mapping 
                     WHERE app_id = :app_id and field_names = 'description'";
@@ -45,25 +45,25 @@ function getTasks($appId){
         $stmt3->bindParam("app_id", $appId);
         $stmt3->execute();
         $description = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-        $description_field = $description[0]['mapping_fields'];
-        $description_fields = explode(",", $description_field);
-        $task_data = array();
+        $descriptionField = $description[0]['mapping_fields'];
+        $descriptionFields = explode(",", $descriptionField);
+        $taskData = array();
         
         foreach ($tasks as $key => $value) {
-            $task_title = array();
-            $task_description = array();
+            $taskTitle = array();
+            $taskDescription = array();
             //var_dump($value);die();
-            foreach ($title_fields as $field){
-                if($value[$field])$task_title[] = array($field=>$value[$field]);
+            foreach ($titleFields as $field){
+                if(isset($value[$field]))$taskTitle[] = array($field=>$value[$field]);
             }
-            foreach ($description_fields as $field){
-                if($value[$field])$task_description[] = array($field=>$value[$field]);
+            foreach ($descriptionFields as $field){
+                if(isset($value[$field]))$taskDescription[] = array($field=>$value[$field]);
             }
-            $task_data[] = array("title"=> $$task_title , "description" => $task_description );
+            $taskData[] = array("title"=> $taskTitle , "description" => $taskDescription );
             
 
         }
-        echo '{"tasks":[{'.json_encode($task_data).'}]}';
+        echo '{"tasks":[{'.json_encode($taskData).'}]}';
 
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
