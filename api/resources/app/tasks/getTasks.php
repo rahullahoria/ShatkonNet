@@ -25,8 +25,8 @@ function getTasks($appId){
         try {
             
             $data = json_decode(httpGet($fetch_url), true);
-            var_dump($data['root']['srs'][0]); die();
-            
+            $tasks = $data['root']['srs'];
+                        
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
@@ -47,10 +47,28 @@ function getTasks($appId){
         $description = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         $description_field = $description[0]['mapping_fields'];
         $description_fields = explode(",", $description_field);
-        foreach ($variable as $key => $value) {
-            # code...
+        $task_data = array('' => , );
+        $task_title = array('' => , );
+        $task_description = array('' => , );
+        foreach ($tasks as $key => $value) {
+            
+            foreach ($title_fields as $field){
+                if($field == $key){
+                   array_push($task_title, $key => $value);
+                } 
+            }
+            foreach ($description_fields as $field){
+                if($field == $key){
+                    array_push($task_description, $key => $value);
+                } 
+            }
+            array_push($task_data, $$task_title , $task_description);
+            $task_title = array('' => , );
+            $task_description = array('' => , );
+
         }
-              
+        echo '{"tasks":[{'.json_encode($task_data).'}]}';
+        
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
