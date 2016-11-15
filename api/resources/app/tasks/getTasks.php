@@ -25,7 +25,7 @@ function getTasks($appId){
         try {
             
             $data = jason_decode(httpGet($fetch_url));
-            var_dump($data['root']); die();
+            var_dump($data); die();
             
         } catch(Exception $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
