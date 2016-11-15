@@ -8,10 +8,10 @@
 session_start();
 $dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
 $url = explode("-",$_GET['load']);
-$serviceProviderName = $url[0];
-$serviceProviderId = $url[1];
+$serviceName = $url[0];
+$serviceId = $url[1];
 $cityName = $url[2];
-$serviceProvider = mysqli_query($dbHandle, "SELECT * FROM service_providers 
+/*$service = mysqli_query($dbHandle, "SELECT * FROM service_providers 
                                     WHERE id = '$serviceProviderId' ;");
 $serviceProviderData = mysqli_fetch_array($serviceProvider);
 $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviderData['profile_pic_id'];
@@ -22,13 +22,12 @@ $otherServices = mysqli_query($dbHandle, "SELECT a.price, a.nagotiable, b.name, 
                                             FROM service_provider_service_mapping AS a
                                             JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
-                                            AND a.service_id = b.id AND b.status = 'active' ;");
+                                            AND a.service_id = b.id AND b.status = 'active' ;");*/
 
 
 // vendor other service
 //$otherServices
 //service {pic, title, description, price}
-
 //$sameServiceByOtherVenders
 //$recommendedService
 
