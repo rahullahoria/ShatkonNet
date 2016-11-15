@@ -52,12 +52,12 @@ function getTasks($appId){
         foreach ($tasks as $key => $value) {
             $task_title = array();
             $task_description = array();
-            var_dump($value);die();
+            //var_dump($value);die();
             foreach ($title_fields as $field){
-                $task_title[] = array($field=>$value[$field]);
+                if($value[$field])$task_title[] = array($field=>$value[$field]);
             }
             foreach ($description_fields as $field){
-                $task_description[] = array($field=>$value[$field]);
+                if($value[$field])$task_description[] = array($field=>$value[$field]);
             }
             $task_data[] = array("title"=> $$task_title , "description" => $task_description );
             
