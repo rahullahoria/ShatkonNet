@@ -55,11 +55,11 @@ function getTasks($appId){
             //var_dump($value);die();
             foreach ($titleFields as $field){
                 $f = trim($field);
-                if(isset($value[$f]))$taskTitle[] = $f=>$value[$f];
+                if(isset($value[$f]))$taskTitle[$f] = $value[$f];
             }
             foreach ($descriptionFields as $field){
                 $f = trim($field);
-                if(isset($value[$f]))$taskDescription[] = $f=>$value[$f];
+                if(isset($value[$f]))$taskDescription[$f] = $value[$f];
             }
             $taskData[] = array("title"=> $taskTitle , "description" => $taskDescription );
             
