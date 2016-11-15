@@ -47,28 +47,24 @@ function getTasks($appId){
         $description = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         $description_field = $description[0]['mapping_fields'];
         $description_fields = explode(",", $description_field);
-        $task_data = array('' => , );
-        $task_title = array('' => , );
-        $task_description = array('' => , );
+        $task_data = array();
+        
         foreach ($tasks as $key => $value) {
+            $task_title = array();
+            $task_description = array();
             
             foreach ($title_fields as $field){
-                if($field == $key){
-                   array_push($task_title, $key => $value);
-                } 
+                $task_title[] = array($field=>$value[$field]);
             }
             foreach ($description_fields as $field){
-                if($field == $key){
-                    array_push($task_description, $key => $value);
-                } 
+                $task_description[] = array($field=>$value[$field]);
             }
-            array_push($task_data, $$task_title , $task_description);
-            $task_title = array('' => , );
-            $task_description = array('' => , );
+            $task_data[] = array("title"=> $$task_title , "description" => $task_description );
+            
 
         }
         echo '{"tasks":[{'.json_encode($task_data).'}]}';
-        
+
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
