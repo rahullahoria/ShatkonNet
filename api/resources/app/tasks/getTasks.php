@@ -24,7 +24,7 @@ function getTasks($appId){
         $fetch_url = trim($url[0]['fetch_url'])."=".$state;
         try {
             
-            $data = json_decode(httpGet($fetch_url));
+            $data = json_decode(httpGet($fetch_url), true);
             var_dump($data); die();
             
         } catch(Exception $e) {
