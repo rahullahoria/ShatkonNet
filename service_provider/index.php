@@ -109,10 +109,19 @@ $donotLikeCount*/
                             <div id="myCarousel" class="carousel slide">
                                 <div class="carousel-inner">
                                 <?php
+                                $flag = true;
                                 while ( $photos = mysqli_fetch_array($photosArray)) {
+                                    if($flag){
+                                     echo "<div  style='text-align:center'  class='item active'>
+                                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business webebsite template'>
+                                           </div>";
+                                    }
+                                    else {
                                      echo "<div  style='text-align:center'  class='item'>
                                             <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
-                                           </div>";
+                                           </div>";  
+                                    }
+                                    $flag = false;
                                  } 
                                 ?>
                                 </div>
@@ -127,45 +136,41 @@ $donotLikeCount*/
                 <div class="row">
                     <div class="col-md-3 col-sm-6 col-xs-6">           
                         <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-envelope-o"></i>
+                            <span class="icon-box bg-color-blue set-icon">
+                                <i class="fa fa-rocket"></i>
                             </span>
                             <div class="text-box" >
-                                <p class="main-text">120 New</p>
-                                <p class="text-muted">Messages</p>
+                                <p class="main-text">120</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">           
                         <div class="panel panel-back noti-box">
                             <span class="icon-box bg-color-green set-icon">
-                                <i class="fa fa-bars"></i>
+                                <i class="fa fa-heart"></i>
                             </span>
                             <div class="text-box" >
-                                <p class="main-text">30 Tasks</p>
-                                <p class="text-muted">Remaining</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-blue set-icon">
-                                <i class="fa fa-bell-o"></i>
-                            </span>
-                            <div class="text-box" >
-                                <p class="main-text">240 New</p>
-                                <p class="text-muted">Notifications</p>
+                                <p class="main-text">30</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">           
                         <div class="panel panel-back noti-box">
                             <span class="icon-box bg-color-brown set-icon">
-                                <i class="fa fa-rocket"></i>
+                                <i class="fa fa-check"></i>
                             </span>
                             <div class="text-box" >
-                                <p class="main-text">3 Orders</p>
-                                <p class="text-muted">Pending</p>
+                                <p class="main-text">240</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-6">           
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-thumbs-o-down"></i>
+                            </span>
+                            <div class="text-box" >
+                                <p class="main-text">3 </p>
                             </div>
                         </div>
                     </div>
@@ -173,54 +178,23 @@ $donotLikeCount*/
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green">
-                            <div class="panel-body">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                <h3>120 GB </h3>
-                            </div>
-                            <div class="panel-footer back-footer-green">
-                               Disk Space Available
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red">
-                            <div class="panel-body">
-                                <i class="fa fa-edit fa-5x"></i>
-                                <h3>20,000 </h3>
-                            </div>
-                            <div class="panel-footer back-footer-red">
-                                Articles Pending
-                                
-                            </div>
-                        </div>    
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green">
-                            <div class="panel-body">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                <h3>120 GB </h3>
-                            </div>
-                            <div class="panel-footer back-footer-green">
-                               Disk Space Available
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green">
-                            <div class="panel-body">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                <h3>120 GB </h3>
-                            </div>
-                            <div class="panel-footer back-footer-green">
-                               Disk Space Available
-                                
-                            </div>
-                        </div>
-                    </div>
+                <?php
+                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
+                        echo "<div class='col-md-3 col-sm-6 col-xs-12'>
+                                <div class='panel panel-primary text-center no-boder bg-color-green'>
+                                    <div class='panel-body'>
+                                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id']."' class='service-image img-responsive'/>
+                                        <span class='service-name'>".$allServicesOfVendor['price']." Rs per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['nagotiable'])." </span>
+                                    </div>
+                                    <div class='panel-footer back-footer-green'>
+                                       ".$allServicesOfVendor['name']." <br/>
+                                       ".$allServicesOfVendor['description']."
+                                    </div>
+                                </div>
+                            </div>";
+                    }
+                ?>
+                    
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">

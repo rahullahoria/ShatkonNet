@@ -204,7 +204,22 @@ border-radius: 10px;
 max-height:170px;
 max-width:170px;
 }
-
+.service-image {
+margin: 2px auto;
+position: relative;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+height:170px;
+width:170px;
+}
+.service-name{
+    position: absolute;
+    font-size: 12px;
+    color: lightblue;
+    top: 80px;
+    left: 50px
+}
 .navbar-cls-top .navbar-brand {
 	color: #fff;
 background: #C90000;
